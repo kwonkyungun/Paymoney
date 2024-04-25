@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        //로그인 이동 버튼
+        //시작하기 버튼
         binding.btnLogin.setOnClickListener{
             val btn_login = Intent(this, Login::class.java)
             startActivity(btn_login)
