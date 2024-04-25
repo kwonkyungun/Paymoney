@@ -1,20 +1,67 @@
 package com.example.paymoney
 
+import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.paymoney.Login.Login
+import com.example.paymoney.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
+
+  private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+
+        //로그인 이동 버튼
+        binding.btnLogin.setOnClickListener{
+            val btn_login = Intent(this, Login::class.java)
+            startActivity(btn_login)
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+
+
+
     }
+
+    //구글 로그인
+//    fun GoogleLogin() {
+//        signInRequest = BeginSignInRequest.builder()
+//            .setGoogleIdTokenRequestOptions(
+//                BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
+//                    .setSupported(true)
+//                    // Your server's client ID, not your Android client ID.
+//                    .setServerClientId(getString(R.string.your_web_client_id))
+//                    // Only show accounts previously used to sign in.
+//                    .setFilterByAuthorizedAccounts(true)
+//                    .build())
+//            .build()
+//    }
 }
