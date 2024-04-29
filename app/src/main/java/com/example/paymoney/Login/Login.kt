@@ -67,6 +67,7 @@ class Login : AppCompatActivity() {
 
         //Paymoney로그인
         binding.btnPayLogin.setOnClickListener {
+            PayMoneyLogin()
 
         }
 
@@ -80,17 +81,7 @@ class Login : AppCompatActivity() {
     }
 
     // 카카오 로그인
-    private fun  kakaoLogin () {
-        // 카카오계정으로 로그인 공통 callback 구성
-        // 카카오톡으로 로그인 할 수 없어 카카오계정으로 로그인할 경우 사용됨
-        val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
-            if (error != null) {
-                Log.e(TAG, "카카오계정으로 로그인 실패", error)
-            } else if (token != null) {
-                Log.i(TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
-            }
-        }
-
+    private fun kakaoLogin () {
         // 카카오톡이 설치되어 있으면 카카오톡으로 로그인, 아니면 카카오계정으로 로그인
         if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
             UserApiClient.instance.loginWithKakaoTalk(this) { token, error ->
@@ -107,6 +98,7 @@ class Login : AppCompatActivity() {
                     UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
                 } else if (token != null) {
                     Log.i(TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
+                    getkakaoUserInfo()
                 }
             }
         } else {
@@ -114,6 +106,18 @@ class Login : AppCompatActivity() {
         }
 
     }
+
+    // 카카오계정으로 로그인 공통 callback 구성
+    // 카카오톡으로 로그인 할 수 없어 카카오계정으로 로그인할 경우 사용됨
+    private val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
+        if (error != null) {
+            Log.e(TAG, "카카오계정으로 로그인 실패", error)
+        } else if (token != null) {
+            Log.i(TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
+            getkakaoUserInfo()
+        }
+    }
+
     private fun getkakaoUserInfo () {
         // 사용자 정보 요청 (기본 동의)
         UserApiClient.instance.me { user, error ->
@@ -121,14 +125,20 @@ class Login : AppCompatActivity() {
                 Log.e(TAG, "사용자 정보 요청 실패", error)
             }
             else if (user != null) {
-                var scopes = mutableListOf<String>()
                 var name = user.kakaoAccount?.profile?.nickname
-                var email = user.kakaoAccount?.phoneNumberNeedsAgreement
-                var number =  user.kakaoAccount?.profileNeedsAgreement
-                Log.i(TAG, "사용자 정보 요청 실패 $user" )
+                var email = user.kakaoAccount?.email
+                var number =  user.kakaoAccount?.phoneNumber
+                Log.i(TAG, "사용자 정보 요청 성공 $user" )
 
-//                viewmodel
+                viewModel.saveLoginInfo(name, email, number)
+//
             }
         }
+    }
+
+
+    private fun PayMoneyLogin (){
+
+
     }
 }
