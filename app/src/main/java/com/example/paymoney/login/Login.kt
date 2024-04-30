@@ -1,11 +1,9 @@
-package com.example.paymoney.Login
+package com.example.paymoney.login
 
 import android.content.ContentValues.TAG
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.util.Base64
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -14,16 +12,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.paymoney.R
-import com.example.paymoney.Sign_up.SignUp
+import com.example.paymoney.sign_up.SignUp
 import com.example.paymoney.databinding.ActivityLoginBinding
-import com.example.paymoney.databinding.ActivityMainBinding
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
-import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
-import java.security.MessageDigest
 
 class Login : AppCompatActivity() {
 

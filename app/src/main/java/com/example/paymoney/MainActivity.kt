@@ -1,13 +1,12 @@
 package com.example.paymoney
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.paymoney.Login.Login
+import com.example.paymoney.login.Login
 import com.example.paymoney.databinding.ActivityMainBinding
 
 

@@ -3,18 +3,21 @@
 <layout>
     <data>
         <variable
+            
         name="viewModel"
-        type="com.example.paymoney.Login.LoginViewModel" />
+        type="com.example.paymoney.login.LoginViewModel" />
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
+
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".Login.Login">
+    tools:context=".login.Login">
 
 
 <!--        <com.navercorp.nid.oauth.view.NidOAuthLoginButton-->
