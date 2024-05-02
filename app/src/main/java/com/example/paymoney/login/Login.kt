@@ -14,6 +14,9 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.paymoney.R
 import com.example.paymoney.sign_up.SignUp
 import com.example.paymoney.databinding.ActivityLoginBinding
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.common.model.ClientError
@@ -24,6 +27,7 @@ class Login : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private val viewModel: LoginViewModel by viewModels()
+    private lateinit var auth: FirebaseAuth
 
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,19 +35,19 @@ class Login : AppCompatActivity() {
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        //질문
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = this
-
-
-
         enableEdgeToEdge()
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        //질문
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+
+        //firebase 인스턴스 초기화
+        auth = Firebase.auth
 
         // kakao SDK 초기화
         KakaoSdk.init(this, "{bcb49a5cbb19c7b3250c810bea12038c}")

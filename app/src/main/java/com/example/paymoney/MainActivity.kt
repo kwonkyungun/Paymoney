@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
 
         //시작하기 버튼
-        binding.btnLogin.setOnClickListener{
+        binding.btnStart.setOnClickListener{
             val btn_login = Intent(this, Login::class.java)
             startActivity(btn_login)
         }
