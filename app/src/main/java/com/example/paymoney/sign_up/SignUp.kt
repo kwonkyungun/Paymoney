@@ -1,4 +1,4 @@
-package com.example.paymoney.Sign_up
+package com.example.paymoney.sign_up
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
