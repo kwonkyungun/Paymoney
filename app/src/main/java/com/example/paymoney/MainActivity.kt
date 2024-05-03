@@ -8,6 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.paymoney.login.Login
 import com.example.paymoney.databinding.ActivityMainBinding
+import com.google.firebase.auth.FirebaseAuth
 
 
 class MainActivity : AppCompatActivity() {
@@ -25,6 +26,13 @@ class MainActivity : AppCompatActivity() {
         binding.btnStart.setOnClickListener{
             val btn_login = Intent(this, Login::class.java)
             startActivity(btn_login)
+        }
+
+        //로그아웃 버튼
+        binding.btnLogout.setOnClickListener {
+            FirebaseAuth.getInstance().signOut();
+            val btn_logout = Intent(this, Login::class.java)
+            startActivity(btn_logout)
         }
 
 

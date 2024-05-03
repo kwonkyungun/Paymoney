@@ -5,12 +5,14 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.paymoney.MainActivity
 import com.example.paymoney.R
 import com.example.paymoney.sign_up.SignUp
 import com.example.paymoney.databinding.ActivityLoginBinding
@@ -137,7 +139,18 @@ class Login : AppCompatActivity() {
 
 
     private fun PayMoneyLogin (){
+        val email = binding.LoginEmail.text.toString()
+        val pw = binding.LoginPw.text.toString()
 
-
+            auth?.signInWithEmailAndPassword(email, pw)
+                ?.addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        //로그인에 성공한 경우 메인 화면으로 이동
+                        startActivity(Intent(this,MainActivity::class.java))
+                    } else {
+                        //로그인에 실패한 경우 Toast 메시지로 에러를 띄워준다
+                        Toast.makeText(this, "로그인 실패하였습니다.", Toast.LENGTH_LONG).show()
+                    }
+        }
     }
 }
