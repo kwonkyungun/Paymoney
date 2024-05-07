@@ -4,28 +4,39 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModel
 import com.example.paymoney.MainActivity
 import com.example.paymoney.R
 import com.example.paymoney.databinding.ActivityLoginBinding
 import com.example.paymoney.databinding.ActivitySingUpBinding
+import com.example.paymoney.login.Login
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
+import java.util.regex.Pattern
 
 class SignUp : AppCompatActivity() {
 
     private lateinit var binding: ActivitySingUpBinding
     private lateinit var auth: FirebaseAuth
+    private val viewModel: SignUpViewModel by viewModels()
 
+    val email = binding.signUpEmail.text.toString()
+    val pw = binding.signUpPassword.text.toString()
+    val pwCheck = binding.signUpCheckPassword.text.toString()
 
+    private var isCheckEmail: Boolean = false
+    private var isCheckPwd: Boolean = false
+    private var isCheckPwdConfirm: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,9 +53,17 @@ class SignUp : AppCompatActivity() {
         auth = Firebase.auth
 
 
+        //회원가입
         binding.signUpButton.setOnClickListener {
-            Social_login()
+//            Social_login()
+            Email()
+
         }
+        //뒤로가기
+        binding.signUpBack.setOnClickListener {
+            startActivity(Intent(this, Login::class.java))
+        }
+
 
     }
 
@@ -52,9 +71,7 @@ class SignUp : AppCompatActivity() {
 
     //firebase 회원가입
     private fun Social_login() {
-        val email = binding.signUpEmail.text.toString()
-        val pw = binding.signUpPassword.text.toString()
-        val pwCheck = binding.signUpCheckPassword.text.toString()
+
 
         auth.createUserWithEmailAndPassword(email, pw)
             .addOnCompleteListener(this) { task ->
@@ -76,6 +93,35 @@ class SignUp : AppCompatActivity() {
         }
     }
 
-    //로그인 함수
 
+
+
+    //이메일 검사
+    private fun Email() {
+        with(binding.layoutEmail) {
+            isCheckEmail = viewModel.checkEmail(editText?.text)
+            if(!isCheckEmail) {
+                error  =  getString(R.string.error_Email)
+            }
+            isErrorEnabled = !isCheckEmail
+            
+            if(isErrorEnabled) {
+                editText?.doOnTextChanged { text, start, before, count ->  
+                    error = null
+                }
+            }
+        }
+    }
+
+    //비밀번호 검사
+    private fun pwd() {
+        with(binding.layoutPwd){
+
+        }
+    }
+
+    //비밀번호 재입력 검사
+    private fun PwdConfirm() {
+
+    }
 }

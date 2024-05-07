@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Paymoney</string>
+    <string name="error_Email">비밀번호를 확인해 주세요.</string>
+    <string name="error_EmailConfirm"> 비밀번호가 알맞지 않습니다. </string>
+
+    <string name="error_policy">약관에 동의해주세요.</string>
 </resources>
